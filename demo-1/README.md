@@ -1,3 +1,11 @@
+
+This is an experimental animation made by Arriq Singleton at CreativeOne using React and GSAP.
+
+
+_________________________________________________________________________________________________________________________________________________________
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
