@@ -5,6 +5,14 @@ import Step from '@material-ui/core/Step';
 import StepButton from '@material-ui/core/StepButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Slider from '@material-ui/core/Slider';
+import Radio from '@material-ui/core/Radio';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,14 +33,136 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function BasicSelect() {
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
+  return (
+    <div>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Employment Status</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          label="Employment Status"
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>Employed</MenuItem>
+          <MenuItem value={20}>Retired</MenuItem>
+          <MenuItem value={30}>Business Owner</MenuItem>
+          <MenuItem value={40}>Homemaker</MenuItem>
+        </Select>
+      </FormControl>
+    </div>
+  );
+}
+
+function RadioButtons() {
+  const [selectedValue, setSelectedValue] = React.useState('a');
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  return (
+    <div className="radio">
+      <p>Male
+      <Radio
+        checked={selectedValue === 'a'}
+        onChange={handleChange}
+        value="a"
+        name="radio-button-demo"
+        inputProps={{ 'aria-label': 'A' }}
+      /></p>
+      <p>Female
+      <Radio
+        checked={selectedValue === 'b'}
+        onChange={handleChange}
+        value="b"
+        name="radio-button-demo"
+        inputProps={{ 'aria-label': 'B' }}
+      /></p>
+      <style>
+        {`
+        .radio {display: flex}
+        `}
+      </style>
+    </div>
+
+  );
+}
+
+const marks = [
+  {
+    value: 0,
+    label: '< $250k',
+  },
+  {
+    value: 25,
+    label: '$250k - $500k',
+  },
+  {
+    value: 50,
+    label: '$500k - $1M',
+  },
+  {
+    value: 75,
+    label: '$1M - $2M',
+  },
+  {
+    value: 100,
+    label: '> $2M',
+  },
+];
+
+function valuetext(value) {
+  return `$${value}`;
+}
+
+function DiscreteSlider() {
+
+  return (
+    <div>
+      <Typography id="discrete-slider-custom" gutterBottom>
+        Net Worth
+      </Typography>
+      <Slider
+        defaultValue={50}
+        getAriaValueText={valuetext}
+        aria-labelledby="discrete-slider-custom"
+        step={25}
+        valueLabelDisplay="auto"
+        marks={marks}
+      />
+    </div>
+  );
+}
+
+function BasicTextFields() {
+
+  return (
+    <form noValidate autoComplete="off">
+      <p>Name</p><TextField id="outlined-basic" label="First" variant="outlined" />
+      <TextField id="outlined-basic" label="Last" variant="outlined" /><br />
+      <RadioButtons />
+      <BasicSelect /><br />
+      <DiscreteSlider />
+    </form>
+  );
+}
+
 function getSteps() {
-  return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+  return ['Personal Information', 'Children & Grandchildren', 'Expectations & Concerns'];
 }
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return 'Step 1: Select campaign settings...';
+      return <BasicTextFields />;
     case 1:
       return 'Step 2: What is an ad group anyways?';
     case 2:
