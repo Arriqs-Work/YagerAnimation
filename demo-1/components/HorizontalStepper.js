@@ -33,11 +33,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function BasicSelect() {
-  const [age, setAge] = React.useState('');
+function EmploymentStatusSelect() {
+  const [employmentStatus, setEmploymentStatus] = React.useState('');
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setEmploymentStatus(event.target.value);
   };
 
   return (
@@ -47,7 +47,7 @@ function BasicSelect() {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
+          value={employmentStatus}
           label="Employment Status"
           onChange={handleChange}
         >
@@ -61,6 +61,36 @@ function BasicSelect() {
   );
 }
 
+function MaritalStatusSelect() {
+  const [maritalStatus, setMaritalStatus] = React.useState('');
+
+  const handleChange = (event) => {
+    setMaritalStatus(event.target.value);
+  };
+
+  return (
+    <div>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Marital Status</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={maritalStatus}
+          label="Marital Status"
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>Single</MenuItem>
+          <MenuItem value={20}>Married</MenuItem>
+          <MenuItem value={30}>Widowed</MenuItem>
+          <MenuItem value={40}>Divorced</MenuItem>
+        </Select>
+      </FormControl>
+    </div>
+  );
+}
+
+
+
 function RadioButtons() {
   const [selectedValue, setSelectedValue] = React.useState('a');
 
@@ -70,6 +100,7 @@ function RadioButtons() {
 
   return (
     <div className="radio">
+      Gender:
       <p>Male
       <Radio
         checked={selectedValue === 'a'}
@@ -142,16 +173,63 @@ function DiscreteSlider() {
   );
 }
 
-function BasicTextFields() {
+function Step1Fields() {
 
   return (
     <form noValidate autoComplete="off">
-      <p>Name</p><TextField id="outlined-basic" label="First" variant="outlined" />
-      <TextField id="outlined-basic" label="Last" variant="outlined" /><br />
+      <p>Name:</p><TextField id="outlined-basic" label="First" variant="outlined" />
+      <TextField  label="Last" variant="outlined" /><br /><br />
       <RadioButtons />
-      <BasicSelect /><br />
-      <DiscreteSlider />
+      <p>Date of Birth:</p><TextField label="00/00/0000" variant="outlined" /><br /><br />
+      <EmploymentStatusSelect /><br />
+      <p>Employment Income (non-investment only):</p><TextField label="$" variant="outlined" /><br /><br />
+      <p>Other Income:</p><TextField label="$" variant="outlined" /><br /><br />
+      <DiscreteSlider /><br /><br />
+      <MaritalStatusSelect /><br />
+      <p>Social Security:</p><TextField label="000-00-0000" variant="outlined" /><br /><br />
     </form>
+  );
+}
+
+function Step2Fields() {
+
+  return (
+    <>
+      <form noValidate autoComplete="off">
+        <p>Name:</p><TextField id="outlined-basic" label="First" variant="outlined" />
+        <TextField  label="Last" variant="outlined" /><br /><br />
+        <p>Date of Birth:</p><TextField label="00/00/0000" variant="outlined" /><br /><br />
+        <p>Age:</p><TextField label="Age" variant="outlined" /><br /><br />
+        <p>Relationship:</p><TextField label="Relationship" variant="outlined" /><br /><br />
+      </form>
+    </>
+  );
+}
+
+function Step3Fields() {
+
+  return (
+    <>
+      <h2>What do you most look forward to? What concerns you? Select all that applies to you.</h2>
+      <h3>Retirement Expectations</h3>
+      <form noValidate autoComplete="off">
+
+      </form>
+      <h3>Retirement Concerns</h3>
+      <h4>Money Concerns</h4>
+      <h4>Health Concerns</h4>
+      <h4>Personal & Family Concerns</h4>
+      <h4>Something Else/Other Concerns</h4>
+      <p>Top Five Concerns in Retirement:<br />
+        <ol>
+          <li>Running out of money</li>
+          <li>Cost of health care or long-term care</li>
+          <li>Suffering investment losses</li>
+          <li>Current or future health issues</li>
+          <li>Not having a paycheck</li>
+        </ol>
+      </p>
+    </>
   );
 }
 
@@ -162,11 +240,11 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <BasicTextFields />;
+      return <Step1Fields />;
     case 1:
-      return 'Step 2: What is an ad group anyways?';
+      return <Step2Fields />;
     case 2:
-      return 'Step 3: This is the bit I really care about!';
+      return <Step3Fields />;
     default:
       return 'Unknown step';
   }
