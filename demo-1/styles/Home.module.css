@@ -16,12 +16,6 @@
   align-items: center;
 }
 
-.mainContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-}
 
 .footer {
   width: 100%;

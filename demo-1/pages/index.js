@@ -48,8 +48,8 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <div className={styles.mainContainer}>
-          <h1>Browse CreativeOne's React.js Component Library</h1>
+        <div>
+          <h1>Browse CreativeOne's React.js Component Library</h1><br /><br />
           <LinkstoComponents />
         </div>
       </main>
