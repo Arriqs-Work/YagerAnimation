@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -15,6 +15,31 @@ import Select from '@material-ui/core/Select';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+
+let step1Props = {
+  clientProps: {
+    clientName: "", 
+    clientGender: "", 
+    clientDOB: "", 
+    clientEmploymentStatus: "", 
+    clientEmploymentIncome: "", 
+    clientOtherIncome: "", 
+    clientNetWorth: "", 
+    clientMaritalStatus: "", 
+    clientSocialSecurity: "", 
+  },
+  coClientProps: {
+    coClientName: "",
+    coClientGender: "",
+    coClientDOB: "",
+    coClientEmploymentStatus: "",
+    coClientEmploymentIncome: "",
+    coClientOtherIncome: "",
+    coClientNetWorth: "",
+    coClientMaritalStatus: "",
+    coClientSocialSecurity: ""
+  }
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -118,7 +143,10 @@ function EmploymentStatusSelect() {
 
 function MaritalStatusSelect() {
   const [maritalStatus, setMaritalStatus] = React.useState('');
-
+  useEffect(() => {
+    step1Props.clientProps.clientMaritalStatus = maritalStatus;
+    console.log(step1Props)
+  })
   const handleChange = (event) => {
     setMaritalStatus(event.target.value);
   };
@@ -134,10 +162,10 @@ function MaritalStatusSelect() {
           label="Marital Status"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Single</MenuItem>
-          <MenuItem value={20}>Married</MenuItem>
-          <MenuItem value={30}>Widowed</MenuItem>
-          <MenuItem value={40}>Divorced</MenuItem>
+          <MenuItem value={'Single'}>Single</MenuItem>
+          <MenuItem value={'Married'}>Married</MenuItem>
+          <MenuItem value={'Widowed'}>Widowed</MenuItem>
+          <MenuItem value={'Divorced'}>Divorced</MenuItem>
         </Select>
       </FormControl>
     </div>
@@ -154,24 +182,25 @@ function RadioButtons() {
   };
 
   return (
-    <div className="radio">
-      Gender:
-      <p>Male
+    <div style={{display: 'flex', flexDirection: 'column'}} className="radio">
+      <p>Gender:</p>
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        <p>Male</p>
       <Radio
-        checked={selectedValue === 'a'}
+        checked={selectedValue === 'Male'}
         onChange={handleChange}
-        value="a"
+        value="Male"
         name="radio-button-demo"
-        inputProps={{ 'aria-label': 'A' }}
-      /></p>
-      <p>Female
+        inputProps={{ 'aria-label': 'Male' }}
+      />
+      <p>Female</p>
       <Radio
-        checked={selectedValue === 'b'}
+        checked={selectedValue === 'Female'}
         onChange={handleChange}
-        value="b"
+        value="Female"
         name="radio-button-demo"
-        inputProps={{ 'aria-label': 'B' }}
-      /></p>
+        inputProps={{ 'aria-label': 'Female' }}
+      /></div>
       <style>
         {`
         .radio {display: flex}
@@ -231,6 +260,7 @@ function DiscreteSlider() {
 function Step1Fields() {
 
   return (
+    <>
     <form noValidate autoComplete="off">
       <p>Name:</p><TextField id="outlined-basic" label="First" variant="outlined" />
       <TextField  label="Last" variant="outlined" /><br /><br />
@@ -243,6 +273,7 @@ function Step1Fields() {
       <MaritalStatusSelect /><br />
       <p>Social Security:</p><TextField label="000-00-0000" variant="outlined" /><br /><br />
     </form>
+    </>
   );
 }
 
@@ -486,7 +517,7 @@ export default function HorizontalNonLinearAlternativeLabelStepper() {
             <Typography className={classes.instructions}>
               All steps completed - you&apos;re finished
             </Typography>
-            <Button onClick={fetchPdf} >Download my pdf</Button>
+            <Button onClick={fetchPdf}>Download my pdf</Button>
             <Button onClick={handleReset}>Reset</Button>
           </div>
         ) : (
