@@ -12,11 +12,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: '70%',
   },
   button: {
     marginRight: theme.spacing(1),
@@ -32,6 +34,59 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
 }));
+
+
+function RetirementExpectationsCheckboxes() {
+  return (
+    <FormGroup>
+      <FormControlLabel control={<Checkbox />} label="Active Lifestyle" />
+      <FormControlLabel control={<Checkbox />} label="Quiet Lifestyle" />
+      <FormControlLabel control={<Checkbox />} label="Opportunity to Help Others" />
+      <FormControlLabel control={<Checkbox />} label="Moving to a New Home" />
+      <FormControlLabel control={<Checkbox />} label="Work by Choice" />
+      <FormControlLabel control={<Checkbox />} label="Time to Travel" />
+      <FormControlLabel control={<Checkbox />} label="Start a Business" />
+      <FormControlLabel control={<Checkbox />} label="Time with Friends &amp; Family" />
+      <FormControlLabel control={<Checkbox />} label="Less Stress" />
+    </FormGroup>
+  );
+}
+
+function MoneyConcernsCheckboxes() {
+  return (
+    <FormGroup>
+      <FormControlLabel control={<Checkbox />} label="Not Having a Paycheck" />
+      <FormControlLabel control={<Checkbox />} label="Running Out of Money" />
+      <FormControlLabel control={<Checkbox />} label="Suffering Investment Losses" />
+      <FormControlLabel control={<Checkbox />} label="Leaving Money to Others" />
+    </FormGroup>
+  );
+}
+function HealthConcernsCheckboxes() {
+  return (
+    <FormGroup>
+      <FormControlLabel control={<Checkbox />} label="Cost of Health Care" />
+      <FormControlLabel control={<Checkbox />} label="Current or Future Health Issues" />
+      <FormControlLabel control={<Checkbox />} label="Dying Early" />
+      <FormControlLabel control={<Checkbox />} label="Living Too Long" />
+      <FormControlLabel control={<Checkbox />} label="Getting Ill" />
+    </FormGroup>
+  );
+}
+
+function FamilyConcernsCheckboxes() {
+  return (
+    <FormGroup>
+      <FormControlLabel control={<Checkbox />} label="Being Bored" />
+      <FormControlLabel control={<Checkbox />} label="Parents Needing Care" />
+    </FormGroup>
+  );
+}
+
+
+function fetchPdf() {
+  
+}
 
 function EmploymentStatusSelect() {
   const [employmentStatus, setEmploymentStatus] = React.useState('');
@@ -210,25 +265,81 @@ function Step3Fields() {
 
   return (
     <>
-      <h2>What do you most look forward to? What concerns you? Select all that applies to you.</h2>
-      <h3>Retirement Expectations</h3>
-      <form noValidate autoComplete="off">
+      <div className="top5Concerns">
+        <h3>Top Five Concerns in Retirement:</h3>
+          <ol>
+            <li>Running out of money</li>
+            <li>Cost of health care or long-term care</li>
+            <li>Suffering investment losses</li>
+            <li>Current or future health issues</li>
+            <li>Not having a paycheck</li>
+          </ol>
+      </div>
 
-      </form>
-      <h3>Retirement Concerns</h3>
-      <h4>Money Concerns</h4>
-      <h4>Health Concerns</h4>
-      <h4>Personal & Family Concerns</h4>
-      <h4>Something Else/Other Concerns</h4>
-      <p>Top Five Concerns in Retirement:<br />
-        <ol>
-          <li>Running out of money</li>
-          <li>Cost of health care or long-term care</li>
-          <li>Suffering investment losses</li>
-          <li>Current or future health issues</li>
-          <li>Not having a paycheck</li>
-        </ol>
-      </p>
+      <h2>What do you most look forward to? What concerns you? Select all that applies to you.</h2>
+      <div className="concernsContainer">
+        <div>
+          <h3>Retirement Expectations</h3>
+          <form noValidate autoComplete="off">
+            <RetirementExpectationsCheckboxes />
+          </form>
+        </div>
+        <div>
+          <h3>Retirement Concerns</h3>
+          <h4>Money Concerns</h4>
+          <form noValidate autoComplete="off">
+            <MoneyConcernsCheckboxes />
+          </form>
+          <h4>Health Concerns</h4>
+          <form noValidate autoComplete="off">
+            <HealthConcernsCheckboxes />
+          </form>
+        </div>
+        <div className='familyConcerns'>
+          <h4>Personal & Family Concerns</h4>
+          <form noValidate autoComplete="off">
+            <FamilyConcernsCheckboxes />
+          </form>
+          <h4>Something Else/Other Concerns</h4>
+          <form noValidate autoComplete="off">
+            <TextField id="outlined-basic" label="Other Concerns" variant="outlined" />
+          </form>
+        </div>
+      </div>
+      <style>
+        {`
+          .top5Concerns {
+            display: flex;
+            flex-direction: column;
+            align-items: center
+          }
+          .concernsContainer {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            column-gap: 2rem
+          }
+          ol {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 70%;
+            padding: 0
+          }
+          li {
+            margin-left: 2rem;
+          }
+
+          p {
+            text-align: center;
+          }
+
+          .familyConcerns {
+            margin-top: 3rem
+          }
+        `}
+      </style>
     </>
   );
 }
@@ -375,6 +486,7 @@ export default function HorizontalNonLinearAlternativeLabelStepper() {
             <Typography className={classes.instructions}>
               All steps completed - you&apos;re finished
             </Typography>
+            <Button onClick={fetchPdf} >Download my pdf</Button>
             <Button onClick={handleReset}>Reset</Button>
           </div>
         ) : (

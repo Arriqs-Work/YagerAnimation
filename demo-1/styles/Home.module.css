@@ -1,4 +1,4 @@
-.container {
+.AppContainer {
   min-height: 100vh;
   padding: 0 0.5rem;
   display: flex;
@@ -14,6 +14,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.mainContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
 }
 
 .footer {
