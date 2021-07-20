@@ -115,7 +115,10 @@ function fetchPdf() {
 
 function EmploymentStatusSelect() {
   const [employmentStatus, setEmploymentStatus] = React.useState('');
-
+  useEffect(() => {
+    step1Props.clientProps.clientEmploymentStatus = employmentStatus;
+    console.log(step1Props)
+  })
   const handleChange = (event) => {
     setEmploymentStatus(event.target.value);
   };
@@ -262,8 +265,11 @@ function Step1Fields() {
   return (
     <>
     <form noValidate autoComplete="off">
-      <p>Name:</p><TextField id="outlined-basic" label="First" variant="outlined" />
-      <TextField  label="Last" variant="outlined" /><br /><br />
+      <p>Name:</p>
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        <TextField id="outlined-basic" label="First" variant="outlined" />
+        <TextField  label="Last" variant="outlined" />
+      </div><br /><br />
       <RadioButtons />
       <p>Date of Birth:</p><TextField label="00/00/0000" variant="outlined" /><br /><br />
       <EmploymentStatusSelect /><br />

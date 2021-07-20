@@ -1,21 +1,19 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { useState } from 'react'
-import gsap from 'gsap'
 import HorizontalStepper from '../components/HorizontalStepper'
 
 
 export default function FactFinder() {
   return (
 
-    <div className={styles.container}>
+    <div className={styles.AppContainer}>
       <Head>
         <title>Change Path FactFinder</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-          <div><HorizontalStepper /></div>
+          <div style={{display: 'flex', justifyContent: 'center'}}><HorizontalStepper /></div>
       </main>
 
       <footer className={styles.footer}>
