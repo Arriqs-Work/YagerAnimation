@@ -41,6 +41,55 @@ let step1Props = {
   }
 }
 
+let step2Props = {
+  clientProps: {
+    clientName: "", 
+    clientGender: "", 
+    clientDOB: "", 
+    clientEmploymentStatus: "", 
+    clientEmploymentIncome: "", 
+    clientOtherIncome: "", 
+    clientNetWorth: "", 
+    clientMaritalStatus: "", 
+    clientSocialSecurity: "", 
+  },
+  coClientProps: {
+    coClientName: "",
+    coClientGender: "",
+    coClientDOB: "",
+    coClientEmploymentStatus: "",
+    coClientEmploymentIncome: "",
+    coClientOtherIncome: "",
+    coClientNetWorth: "",
+    coClientMaritalStatus: "",
+    coClientSocialSecurity: ""
+  }
+}
+
+let step3Props = {
+  clientProps: {
+    retirementExpectations: {}, 
+    clientGender: "", 
+    clientDOB: "", 
+    clientEmploymentStatus: "", 
+    clientEmploymentIncome: "", 
+    clientOtherIncome: "", 
+    clientNetWorth: "", 
+    clientMaritalStatus: "", 
+    clientSocialSecurity: "", 
+  },
+  coClientProps: {
+    coClientName: "",
+    coClientGender: "",
+    coClientDOB: "",
+    coClientEmploymentStatus: "",
+    coClientEmploymentIncome: "",
+    coClientOtherIncome: "",
+    coClientNetWorth: "",
+    coClientMaritalStatus: "",
+    coClientSocialSecurity: ""
+  }
+}
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '70%',
@@ -62,17 +111,74 @@ const useStyles = makeStyles((theme) => ({
 
 
 function RetirementExpectationsCheckboxes() {
+
+    const [retirementExpectations, setRetirementExpectations] = React.useState([
+    {activeLifestyle: false},
+    {quietLifestyle: false},
+    {helpOthers: false},
+    {moving: false},
+    {workByChoice: false},
+    {timetoTravel: false},
+    {startBusiness: false},
+    {timeWithFriends: false},
+    {lessStress: false}
+    ]);
+  
+  const {activeLifestyle, quietLifestyle, helpOthers, moving, workByChoice, timetoTravel, startBusiness, timeWithFriends, lessStress} = retirementExpectations;
+
+
+  const handleChange = (event, key) => {
+    let expectations = retirementExpectations;
+    switch (key) {
+      case 0:
+        expectations.splice(key, 1, {activeLifestyle: event.target.checked});
+        break
+      case 1:
+        expectations.splice(key, 1, {quietLifestyle: event.target.checked});
+        break      
+      case 2:
+        expectations.splice(key, 1, {helpOthers: event.target.checked});
+        break
+      case 3:
+        expectations.splice(key, 1, {moving: event.target.checked});
+        break
+      case 4:
+        expectations.splice(key, 1, {workByChoice: event.target.checked});
+        break
+      case 5:
+        expectations.splice(key, 1, {timetoTravel: event.target.checked});
+        break
+      case 6:
+        expectations.splice(key, 1, {startBusiness: event.target.checked});
+      break
+      case 7:
+        expectations.splice(key, 1, {timeWithFriends: event.target.checked});
+        break
+      case 8:
+        expectations.splice(key, 1, {lessStress: event.target.checked});
+        break
+      
+    }
+
+    setRetirementExpectations(expectations);
+    console.log("expectations:");
+    console.log(retirementExpectations)
+    step3Props.clientProps.retirementExpectations = retirementExpectations;
+    console.log("Step 3 Props:")
+    console.log(step3Props)
+  };
+
   return (
     <FormGroup>
-      <FormControlLabel control={<Checkbox />} label="Active Lifestyle" />
-      <FormControlLabel control={<Checkbox />} label="Quiet Lifestyle" />
-      <FormControlLabel control={<Checkbox />} label="Opportunity to Help Others" />
-      <FormControlLabel control={<Checkbox />} label="Moving to a New Home" />
-      <FormControlLabel control={<Checkbox />} label="Work by Choice" />
-      <FormControlLabel control={<Checkbox />} label="Time to Travel" />
-      <FormControlLabel control={<Checkbox />} label="Start a Business" />
-      <FormControlLabel control={<Checkbox />} label="Time with Friends &amp; Family" />
-      <FormControlLabel control={<Checkbox />} label="Less Stress" />
+      <FormControlLabel onChange={(e)=> handleChange(e, 0)} control={<Checkbox />} label="Active Lifestyle" />
+      <FormControlLabel onChange={(e)=> handleChange(e, 1)} control={<Checkbox />} label="Quiet Lifestyle" />
+      <FormControlLabel onChange={(e)=> handleChange(e, 2)} control={<Checkbox />} label="Opportunity to Help Others" />
+      <FormControlLabel onChange={(e)=> handleChange(e, 3)} control={<Checkbox />} label="Moving to a New Home" />
+      <FormControlLabel onChange={(e)=> handleChange(e, 4)} control={<Checkbox />} label="Work by Choice" />
+      <FormControlLabel onChange={(e)=> handleChange(e, 5)} control={<Checkbox />} label="Time to Travel" />
+      <FormControlLabel onChange={(e)=> handleChange(e, 6)} control={<Checkbox />} label="Start a Business" />
+      <FormControlLabel onChange={(e)=> handleChange(e, 7)} control={<Checkbox />} label="Time with Friends &amp; Family" />
+      <FormControlLabel onChange={(e)=> handleChange(e, 8)} control={<Checkbox />} label="Less Stress" />
     </FormGroup>
   );
 }
@@ -134,10 +240,10 @@ function EmploymentStatusSelect() {
           label="Employment Status"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Employed</MenuItem>
-          <MenuItem value={20}>Retired</MenuItem>
-          <MenuItem value={30}>Business Owner</MenuItem>
-          <MenuItem value={40}>Homemaker</MenuItem>
+          <MenuItem value={'Employed'}>Employed</MenuItem>
+          <MenuItem value={'Retired'}>Retired</MenuItem>
+          <MenuItem value={'Business Owner'}>Business Owner</MenuItem>
+          <MenuItem value={'Homemaker'}>Homemaker</MenuItem>
         </Select>
       </FormControl>
     </div>
