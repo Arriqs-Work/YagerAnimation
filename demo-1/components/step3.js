@@ -1,17 +1,11 @@
 import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepButton from '@material-ui/core/StepButton';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 
-let step3Props = {
+var step3Props = {
   clientProps: {
     retirementExpectations: {}, 
     moneyConcerns: {},

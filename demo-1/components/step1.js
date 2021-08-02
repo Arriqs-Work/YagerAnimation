@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-let step1Props = {
+var step1Props = {
   clientProps: {
     clientName: "", 
     clientGender: "", 
