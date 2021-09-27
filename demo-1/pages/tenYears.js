@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react'
 import gsap from 'gsap'
-import {DrawSVGPlugin} from './../Components/DrawSVGPlugin.js'
+import {DrawSVGPlugin} from '../components/DrawSVGPlugin.js'
 const YagerLogo = () => {
     useEffect(() => {
       gsap.registerPlugin(DrawSVGPlugin);
