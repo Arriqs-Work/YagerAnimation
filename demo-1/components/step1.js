@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Slider from '@material-ui/core/Slider';
@@ -16,7 +16,7 @@ var step1Props = {
     clientEmploymentStatus: "", 
     clientEmploymentIncome: "", 
     clientOtherIncome: "", 
-    clientNetWorth: "", 
+    clientNetWorth: "50", 
     clientMaritalStatus: "", 
     clientSocialSecurity: "", 
   },
@@ -99,10 +99,15 @@ function MaritalStatusSelect() {
 
 
 function RadioButtons() {
-  const [selectedValue, setSelectedValue] = React.useState('a');
+  const [gender, setGender] = React.useState('');
+
+  useEffect(()=>{
+    step1Props.clientProps.clientGender = gender;
+    console.log(step1Props)
+  })
 
   const handleChange = (event) => {
-    setSelectedValue(event.target.value);
+    setGender(event.target.value);
   };
 
   return (
@@ -111,7 +116,7 @@ function RadioButtons() {
       <div style={{display: 'flex', flexDirection: 'row'}}>
         <p>Male</p>
       <Radio
-        checked={selectedValue === 'Male'}
+        checked={gender === 'Male'}
         onChange={handleChange}
         value="Male"
         name="radio-button-demo"
@@ -119,7 +124,7 @@ function RadioButtons() {
       />
       <p>Female</p>
       <Radio
-        checked={selectedValue === 'Female'}
+        checked={gender === 'Female'}
         onChange={handleChange}
         value="Female"
         name="radio-button-demo"
@@ -135,34 +140,48 @@ function RadioButtons() {
   );
 }
 
-const marks = [
-  {
-    value: 0,
-    label: '< $250k',
-  },
-  {
-    value: 25,
-    label: '$250k - $500k',
-  },
-  {
-    value: 50,
-    label: '$500k - $1M',
-  },
-  {
-    value: 75,
-    label: '$1M - $2M',
-  },
-  {
-    value: 100,
-    label: '> $2M',
-  },
-];
 
-function valuetext(value) {
-  return `$${value}`;
-}
 
 function DiscreteSlider() {
+  const marks = [
+    {
+      value: 0,
+      label: '< $250k',
+    },
+    {
+      value: 25,
+      label: '$250k - $500k',
+    },
+    {
+      value: 50,
+      label: '$500k - $1M',
+    },
+    {
+      value: 75,
+      label: '$1M - $2M',
+    },
+    {
+      value: 100,
+      label: '> $2M',
+    },
+  ];
+  
+  function valuetext(value) {
+    return value.toString();
+  }
+
+  const [netWorth, setNetWorth] = useState("50");
+
+  useEffect(()=>{
+    step1Props.clientProps.clientNetWorth = netWorth;
+  })
+
+  const handleChange = (e) => {
+    let updatedNetWorth = e.target.ariaValueText;
+    if (updatedNetWorth !== null || undefined) {
+      setNetWorth(updatedNetWorth.toString());
+    }
+  }
 
   return (
     <div>
@@ -170,6 +189,7 @@ function DiscreteSlider() {
         Net Worth
       </Typography>
       <Slider
+        onChange={(e)=>{handleChange(e)}}
         defaultValue={50}
         getAriaValueText={valuetext}
         aria-labelledby="discrete-slider-custom"
@@ -185,21 +205,21 @@ export default function Step1Fields() {
 
   return (
     <>
-    <form noValidate autoComplete="off">
-      <p>Name:</p>
-      <div style={{display: 'flex', flexDirection: 'row'}}>
-        <TextField id="outlined-basic" label="First" variant="outlined" />
-        <TextField  label="Last" variant="outlined" />
-      </div><br /><br />
-      <RadioButtons />
-      <p>Date of Birth:</p><TextField label="00/00/0000" variant="outlined" /><br /><br />
-      <EmploymentStatusSelect /><br />
-      <p>Employment Income (non-investment only):</p><TextField label="$" variant="outlined" /><br /><br />
-      <p>Other Income:</p><TextField label="$" variant="outlined" /><br /><br />
-      <DiscreteSlider /><br /><br />
-      <MaritalStatusSelect /><br />
-      <p>Social Security:</p><TextField label="000-00-0000" variant="outlined" /><br /><br />
-    </form>
+      <form noValidate autoComplete="off">
+        <p>Name:</p>
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+          <TextField id="outlined-basic" label="First" variant="outlined" />
+          <TextField  label="Last" variant="outlined" />
+        </div><br /><br />
+        <RadioButtons />
+        <p>Date of Birth:</p><TextField label="00/00/0000" variant="outlined" /><br /><br />
+        <EmploymentStatusSelect /><br />
+        <p>Employment Income (non-investment only):</p><TextField label="$" variant="outlined" /><br /><br />
+        <p>Other Income:</p><TextField label="$" variant="outlined" /><br /><br />
+        <DiscreteSlider /><br /><br />
+        <MaritalStatusSelect /><br />
+        <p>Social Security:</p><TextField label="000-00-0000" variant="outlined" /><br /><br />
+      </form>
     </>
   );
 }
